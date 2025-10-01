@@ -1,0 +1,43 @@
+# نام Workflow: ساخت و انتشار ایمیج داکر
+name: Build and Push Docker Image
+
+# این اکشن تنها زمانی اجرا می‌شود که کدی به شاخه master پوش شود
+on:
+  push:
+    branches: [ "master" ] # <-- تغییر در این خط اعمال شد
+
+jobs:
+  build-and-push:
+    # اجرا روی یک ماشین مجازی با آخرین نسخه اوبونتو
+    runs-on: ubuntu-latest
+
+    steps:
+      # مرحله ۱: دریافت کدها از ریپازیتوری
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # مرحله ۲: تنظیم JDK نسخه ۱۷ (مطابق با فایل pom.xml شما)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # مرحله ۳: ساخت پروژه با Maven برای تولید فایل .jar
+      - name: Build with Maven
+        run: mvn clean install
+
+      # مرحله ۴: لاگین به Docker Hub با استفاده از اطلاعات secrets
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      # مرحله ۵: ساخت ایمیج داکر و پوش کردن آن به Docker Hub
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clip_management:latest
