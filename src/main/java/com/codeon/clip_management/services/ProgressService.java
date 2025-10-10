@@ -6,6 +6,7 @@ import com.codeon.clip_management.mappers.ProgressMapper;
 import com.codeon.clip_management.models.Progress;
 import com.codeon.clip_management.models.Role;
 import com.codeon.clip_management.models.Users;
+import com.codeon.clip_management.repository.CostRepository;
 import com.codeon.clip_management.repository.ProgressRepository;
 import com.codeon.clip_management.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,12 +19,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.codeon.clip_management.models.Role.ROLE_USER;
+
 @Service
 @RequiredArgsConstructor
 public class ProgressService {
     private final UserRepository userRepository;
     private final ProgressRepository progressRepository;
     private final ProgressMapper progressMapper;
+    private final CostRepository costRepository;
 
     public ResponseEntity<String> getUserName(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -42,6 +46,25 @@ public class ProgressService {
         Long userId = user.getUserId();
         List<Progress> progressList = progressRepository.findProgressByUserId(userId);
         return progressMapper.toDTOList(progressList);
+    }
+
+    @Transactional
+    public Float getCost(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        // Using orElseThrow for cleaner code when user is expected to exist
+        Users user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Long userId = user.getUserId();
+        Role userRole = user.getRole();
+        List<Progress> progressList = progressRepository.findProgressByUserId(userId);
+        Long cost = costRepository.findCost();
+        Long label = progressRepository.findLabelByUserId(userId);
+        if (userId == 3 || userId == 10 || userId == 7){
+            return (float) ((cost*label*10)/10000);
+        }else {
+            return (float) ((cost*label*4)/10000);
+        }
     }
 
     @Transactional

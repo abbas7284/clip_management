@@ -30,6 +30,11 @@ public class ProgressController {
         return progressService.getUserName();
     }
 
+    @GetMapping("/cost")
+    public Float getCost(){
+        return progressService.getCost();
+    }
+
     @PostMapping("/set")
     public ResponseEntity<?> setLabel(@RequestBody SetLabel request){
         try {

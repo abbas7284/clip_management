@@ -4,7 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
@@ -15,4 +17,5 @@ public class ProgressDTO {
     private Long total;
     private Long sumLabel;
     private Long month;
+
 }
