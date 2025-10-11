@@ -54,9 +54,19 @@ public class ProgressService {
 
     @Transactional
     public List<UsersProgressDTO1.UsersProgressDTO2> percent(){
-        List<Users> users = userRepository.findAll();
-        return usersProgressMapper1.toDtoList2(users);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        // Using orElseThrow for cleaner code when user is expected to exist
+        Users user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
 
+        Long userId = user.getUserId();
+        List<Users> users = userRepository.findAll();
+
+        if (userId == 7){
+            return null;
+        }else {
+            return usersProgressMapper1.toDtoList2(users);
+        }
 
 //        Long percent = label/target*100;
 //        return percent;
