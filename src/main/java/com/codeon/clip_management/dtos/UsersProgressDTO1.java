@@ -24,4 +24,26 @@ public class UsersProgressDTO1 {
         private Long sumLabel;
         private Long month;
     }
+
+
+
+
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UsersProgressDTO2 {
+        private Long userId;
+        private String name;
+        private List<progress1> progress1;
+
+        @Data
+        @AllArgsConstructor
+        @NoArgsConstructor
+        public static class progress1{
+            private Long progressId;
+            private Long target;
+            private Long sumLabel;
+        }
+    }
 }

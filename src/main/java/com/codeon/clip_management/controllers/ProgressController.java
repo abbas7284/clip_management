@@ -2,6 +2,7 @@ package com.codeon.clip_management.controllers;
 
 import com.codeon.clip_management.dtos.ProgressDTO;
 import com.codeon.clip_management.dtos.SetLabel;
+import com.codeon.clip_management.dtos.UsersProgressDTO1;
 import com.codeon.clip_management.mappers.ProgressMapper;
 import com.codeon.clip_management.models.Progress;
 import com.codeon.clip_management.services.ProgressService;
@@ -33,6 +34,11 @@ public class ProgressController {
     @GetMapping("/cost")
     public Float getCost(){
         return progressService.getCost();
+    }
+
+    @GetMapping("/percent")
+    public List<UsersProgressDTO1.UsersProgressDTO2> percent(){
+        return progressService.percent();
     }
 
     @PostMapping("/set")

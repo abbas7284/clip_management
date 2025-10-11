@@ -25,4 +25,11 @@ public interface UsersProgressMapper1 {
     @Mapping(target = "sumLabel", expression = "java(0L)")
     Progress toEntity(SetProgressDTO setProgressDTO, Users users);
 
+
+
+    @Mapping(source = "progress", target = "progress1")
+    UsersProgressDTO1.UsersProgressDTO2 toDto2(Users users);
+    List<UsersProgressDTO1.UsersProgressDTO2> toDtoList2(List<Users> users);
+
+    UsersProgressDTO1.UsersProgressDTO2.progress1 progressToProgressDto2(Progress progress);
 }

@@ -18,6 +18,7 @@ public interface ProgressRepository extends JpaRepository<Progress, Long> {
     @Query(value = "select label from Progress where user_id=:userId and month=(select max(month) from Progress)", nativeQuery = true)
     Long findLabelByUserId(Long userId);
 
+
 //    @Query(value = "update Progress set total = total - 50, label = label + 50 where progress_id =:", nativeQuery = true)
 //    Progress findProgressById(Long progressId);
 }

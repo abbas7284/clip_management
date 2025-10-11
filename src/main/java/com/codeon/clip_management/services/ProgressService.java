@@ -2,7 +2,9 @@ package com.codeon.clip_management.services;
 
 import com.codeon.clip_management.dtos.ProgressDTO;
 import com.codeon.clip_management.dtos.SetLabel;
+import com.codeon.clip_management.dtos.UsersProgressDTO1;
 import com.codeon.clip_management.mappers.ProgressMapper;
+import com.codeon.clip_management.mappers.UsersProgressMapper1;
 import com.codeon.clip_management.models.Progress;
 import com.codeon.clip_management.models.Role;
 import com.codeon.clip_management.models.Users;
@@ -28,6 +30,8 @@ public class ProgressService {
     private final ProgressRepository progressRepository;
     private final ProgressMapper progressMapper;
     private final CostRepository costRepository;
+    private final AdminService adminService;
+    private final UsersProgressMapper1 usersProgressMapper1;
 
     public ResponseEntity<String> getUserName(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -49,6 +53,16 @@ public class ProgressService {
     }
 
     @Transactional
+    public List<UsersProgressDTO1.UsersProgressDTO2> percent(){
+        List<Users> users = userRepository.findAll();
+        return usersProgressMapper1.toDtoList2(users);
+
+
+//        Long percent = label/target*100;
+//        return percent;
+    }
+
+    @Transactional
     public Float getCost(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         // Using orElseThrow for cleaner code when user is expected to exist
@@ -60,9 +74,15 @@ public class ProgressService {
         List<Progress> progressList = progressRepository.findProgressByUserId(userId);
         Long cost = costRepository.findCost();
         Long label = progressRepository.findLabelByUserId(userId);
-        if (userId == 3 || userId == 10 || userId == 7){
+        Long label1 = progressRepository.findLabelByUserId(4L);
+        Long label2 = progressRepository.findLabelByUserId(5L);
+        Long label3 = progressRepository.findLabelByUserId(8L);
+        Long labeln = label1+label2+label3;
+        if (userId == 3 || userId == 7){
             return (float) ((cost*label*10)/10000);
-        }else {
+        } else if (userId == 10) {
+            return (float) (((cost*label*10)/10000)+((cost*labeln*6)/10000));
+        } else {
             return (float) ((cost*label*4)/10000);
         }
     }
