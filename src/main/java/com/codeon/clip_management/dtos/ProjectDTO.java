@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class ProjectDTO {
     private Long videoId;
     private String video;
+    private Integer vidLabel;
     private Integer complete;
     private Integer editing;
 }

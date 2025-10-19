@@ -20,6 +20,7 @@ public class UsersProjectsDTO {
     public static class VideoDetail {
         private Long id;
         private String name;
+        private Integer vidLabel;
         private Integer complete;
         private Integer editing;
     }

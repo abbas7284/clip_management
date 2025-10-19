@@ -18,6 +18,8 @@ public class Projects {
     private Long videoId;
     @Column(name = "video")
     private String video;
+    @Column(name = "vid_label")
+    private Integer vidLabel;
     @Column(name = "complete")
     private Integer complete;
     @Column(name = "editing")

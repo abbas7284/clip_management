@@ -120,8 +120,6 @@ public class AdminService {
         Progress newProgress = usersProgressMapper1.toEntity(setProgressDTO, user);
         newProgress.setTotal(newProgress.getTarget());
         progressRepository.save(newProgress);
-
-
     }
 
     @Transactional

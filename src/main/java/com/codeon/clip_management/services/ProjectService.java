@@ -51,4 +51,11 @@ public class ProjectService {
         }
         return projectRepository.save(projects);
     }
+
+    public Projects setLabel(Long videoId, Integer label){
+        Projects projects = projectRepository.findById(videoId)
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + videoId));
+        projects.setVidLabel(label);
+        return projectRepository.save(projects);
+    }
 }

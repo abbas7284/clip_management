@@ -37,4 +37,12 @@ public class ProjectController {
         Projects projectsComplete = projectService.setComplete(videoId, value);
         return ResponseEntity.ok(projectsComplete);
     }
+    @PostMapping("/setLabel/{videoId}")
+    public ResponseEntity<Projects> setLabel(
+            @PathVariable Long videoId,
+            @RequestBody Integer value){
+
+        Projects projectsLabel = projectService.setLabel(videoId, value);
+        return ResponseEntity.ok(projectsLabel);
+    }
 }

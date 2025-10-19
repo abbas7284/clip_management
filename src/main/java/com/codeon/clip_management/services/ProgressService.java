@@ -88,8 +88,10 @@ public class ProgressService {
         Long label2 = progressRepository.findLabelByUserId(5L);
         Long label3 = progressRepository.findLabelByUserId(8L);
         Long labeln = label1+label2+label3;
-        if (userId == 3 || userId == 7){
+        if (userId == 7){
             return (float) ((cost*label*10)/10000);
+        } else if (userId == 3) {
+            return (float) ((cost*label*9)/10000);
         } else if (userId == 10) {
             return (float) (((cost*label*10)/10000)+((cost*labeln*6)/10000));
         } else {

@@ -31,6 +31,7 @@ public interface UsersProjectsMapper {
 
     @Mapping(target = "complete", constant = "0")
     @Mapping(target = "editing", constant = "0")
+    @Mapping(target = "vidLabel", constant = "0")
     @Mapping(target = "videoId", ignore = true)
     Projects toEntity(String video, Users users);
 }
