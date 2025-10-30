@@ -21,6 +21,15 @@ public class ProgressController {
     private final ProgressService progressService;
     private final ProgressMapper progressMapper;
 
+
+    @GetMapping("/on")
+    public String checkOn() {
+        System.out.println("Cron job executed!");
+        return "OK";
+    }
+
+
+
     @GetMapping("/user")
     public List<ProgressDTO> getUserProgress(){
         return progressService.getUserProgress();
