@@ -44,6 +44,7 @@ public class UsersProgressDTO1 {
             private Long progressId;
             private Long target;
             private Long sumLabel;
+            private Long month;
         }
     }
 }
