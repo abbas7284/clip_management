@@ -22,11 +22,11 @@ public class ProgressController {
     private final ProgressMapper progressMapper;
 
 
-    @GetMapping("/on")
-    public String checkOn() {
-        System.out.println("Cron job executed!");
-        return "OK";
-    }
+//    @GetMapping("/on")
+//    public String checkOn() {
+//        System.out.println("Cron job executed!");
+//        return "OK";
+//    }
 
 
 
